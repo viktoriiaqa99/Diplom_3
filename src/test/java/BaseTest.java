@@ -1,6 +1,6 @@
-
 import api.UserApi;
 import driver.WebDriverFactory;
+import io.qameta.allure.Step;
 import model.TestUser;
 import org.junit.After;
 import org.junit.Before;
@@ -13,12 +13,14 @@ public abstract class BaseTest {
     protected TestUser user;
     protected String accessToken;
 
+    @Step("Настройка браузера перед тестом")
     @Before
     public void setUp() {
         driver = WebDriverFactory.create();
         driver.get("https://stellarburgers.education-services.ru");
     }
 
+    @Step("Очистка данных после теста")
     @After
     public void tearDown() {
         if (accessToken != null) {

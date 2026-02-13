@@ -1,3 +1,6 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import pages.ForgotPasswordPage;
 import pages.LoginPage;
@@ -9,8 +12,9 @@ import static org.junit.Assert.assertTrue;
 public class LoginTests extends BaseTest {
 
     @Test
+    @DisplayName("Вход через кнопку Войти в аккаунт на главной")
+    @Description("Проверка входа через кнопку Войти в аккаунт на главной странице")
     public void loginFromMainButtonTest() {
-        // Вход через кнопку "Войти в аккаунт" на главной
         user = UserGenerator.randomUser();
         accessToken = userApi.register(user)
                 .extract()
@@ -26,8 +30,9 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Вход через кнопку Личный кабинет")
+    @Description("Проверка входа через кнопку Личный кабинет на главной странице")
     public void loginFromPersonalAccountTest() {
-        // Вход через кнопку "Личный кабинет"
         user = UserGenerator.randomUser();
         accessToken = userApi.register(user)
                 .extract()
@@ -43,8 +48,9 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Вход через форму регистрации")
+    @Description("Проверка входа через ссылку в форме регистрации")
     public void loginFromRegistrationFormTest() {
-        // Вход через кнопку в форме регистрации
         user = UserGenerator.randomUser();
         accessToken = userApi.register(user)
                 .extract()
@@ -64,8 +70,9 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Вход через форму восстановления пароля")
+    @Description("Проверка входа через ссылку в форме восстановления пароля")
     public void loginFromForgotPasswordFormTest() {
-        // Вход через кнопку в форме восстановления пароля
         user = UserGenerator.randomUser();
         accessToken = userApi.register(user)
                 .extract()

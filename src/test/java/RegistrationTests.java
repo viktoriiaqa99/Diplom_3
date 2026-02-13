@@ -1,3 +1,6 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import model.TestUser;
 import org.junit.Test;
 import org.openqa.selenium.JavascriptExecutor;
@@ -15,6 +18,8 @@ import static org.junit.Assert.assertTrue;
 public class RegistrationTests extends BaseTest {
 
     @Test
+    @DisplayName("Успешная регистрация пользователя")
+    @Description("Проверка успешной регистрации нового пользователя")
     public void successfulRegistrationTest() {
         user = UserGenerator.randomUser();
 
@@ -43,6 +48,8 @@ public class RegistrationTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Регистрация с коротким паролем")
+    @Description("Проверка ошибки при регистрации с паролем менее 6 символов")
     public void registrationWithShortPasswordTest() {
         TestUser shortPasswordUser = UserGenerator.userWithShortPassword();
 
