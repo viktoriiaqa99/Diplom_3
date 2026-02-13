@@ -1,4 +1,29 @@
-package tests;
 
-public class BaseTest {
+import api.UserApi;
+import driver.WebDriverFactory;
+import model.TestUser;
+import org.junit.After;
+import org.junit.Before;
+import org.openqa.selenium.WebDriver;
+
+public abstract class BaseTest {
+
+    protected WebDriver driver;
+    protected UserApi userApi = new UserApi();
+    protected TestUser user;
+    protected String accessToken;
+
+    @Before
+    public void setUp() {
+        driver = WebDriverFactory.create();
+        driver.get("https://stellarburgers.education-services.ru");
+    }
+
+    @After
+    public void tearDown() {
+        if (accessToken != null) {
+            userApi.delete(accessToken);
+        }
+        driver.quit();
+    }
 }
