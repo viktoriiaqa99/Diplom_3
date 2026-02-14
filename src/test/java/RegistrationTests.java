@@ -1,17 +1,11 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import model.TestUser;
 import org.junit.Test;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.RegistrationPage;
 import util.UserGenerator;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -36,15 +30,11 @@ public class RegistrationTests extends BaseTest {
                 user.getPassword()
         );
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("/login"));
-
-        assertTrue(driver.getCurrentUrl().contains("/login"));
+        assertTrue(registrationPage.isRegistrationSuccessful());
 
         loginPage.login(user.getEmail(), user.getPassword());
 
-        accessToken = (String) ((JavascriptExecutor) driver)
-                .executeScript("return localStorage.getItem('accessToken');");
+        accessToken = registrationPage.getAccessToken();
     }
 
     @Test

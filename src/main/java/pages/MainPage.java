@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,10 +15,12 @@ public class MainPage {
         this.driver = driver;
     }
 
+    @Step("Клик по кнопке Войти в аккаунт на главной")
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
     }
 
+    @Step("Клик по кнопке Личный кабинет")
     public void clickPersonalAccount() {
         driver.findElement(personalAccountButton).click();
     }

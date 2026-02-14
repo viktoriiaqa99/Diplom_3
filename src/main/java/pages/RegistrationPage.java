@@ -1,6 +1,8 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class RegistrationPage {
@@ -26,6 +28,7 @@ public class RegistrationPage {
         this.driver = driver;
     }
 
+    @Step("Регистрация пользователя")
     public void register(String name, String email, String password) {
         driver.findElement(nameInput).sendKeys(name);
         driver.findElement(emailInput).sendKeys(email);
@@ -33,7 +36,19 @@ public class RegistrationPage {
         driver.findElement(registerButton).click();
     }
 
+    @Step("Проверка отображения ошибки некорректного пароля")
     public boolean isPasswordErrorDisplayed() {
         return driver.findElement(passwordError).isDisplayed();
+    }
+
+    @Step("Проверка успешной регистрации")
+    public boolean isRegistrationSuccessful() {
+        return driver.getCurrentUrl().contains("/login");
+    }
+
+    @Step("Получение accessToken из localStorage")
+    public String getAccessToken() {
+        return (String) ((JavascriptExecutor) driver)
+                .executeScript("return localStorage.getItem('accessToken');");
     }
 }

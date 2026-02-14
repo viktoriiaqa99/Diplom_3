@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,16 +17,19 @@ public class ConstructorPage {
         this.driver = driver;
     }
 
+    @Step("Переключение на вкладку Булки")
     public String clickBuns() {
         driver.findElement(bunsTab).click();
         return driver.findElement(activeTab).getText();
     }
 
+    @Step("Переключение на вкладку Соусы")
     public String clickSauces() {
         driver.findElement(saucesTab).click();
         return driver.findElement(activeTab).getText();
     }
 
+    @Step("Переключение на вкладку Начинки")
     public String clickFillings() {
         driver.findElement(fillingsTab).click();
         return driver.findElement(activeTab).getText();
