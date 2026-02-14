@@ -4,6 +4,10 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class RegistrationPage {
 
@@ -43,7 +47,8 @@ public class RegistrationPage {
 
     @Step("Проверка успешной регистрации")
     public boolean isRegistrationSuccessful() {
-        return driver.getCurrentUrl().contains("/login");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.urlContains("/login"));
     }
 
     @Step("Получение accessToken из localStorage")

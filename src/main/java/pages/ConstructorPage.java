@@ -3,6 +3,10 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ConstructorPage {
 
@@ -17,21 +21,39 @@ public class ConstructorPage {
         this.driver = driver;
     }
 
+    private String getActiveTabText() {
+        return driver.findElement(activeTab).getText();
+    }
+
     @Step("Переключение на вкладку Булки")
     public String clickBuns() {
-        driver.findElement(bunsTab).click();
-        return driver.findElement(activeTab).getText();
+        if (getActiveTabText().equals("Булки")) {
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.elementToBeClickable(saucesTab))
+                    .click();
+        }
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(bunsTab))
+                .click();
+
+        return getActiveTabText();
     }
 
     @Step("Переключение на вкладку Соусы")
     public String clickSauces() {
-        driver.findElement(saucesTab).click();
-        return driver.findElement(activeTab).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(saucesTab))
+                .click();
+        return getActiveTabText();
     }
 
     @Step("Переключение на вкладку Начинки")
     public String clickFillings() {
-        driver.findElement(fillingsTab).click();
-        return driver.findElement(activeTab).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(fillingsTab))
+                .click();
+        return getActiveTabText();
     }
+
 }
