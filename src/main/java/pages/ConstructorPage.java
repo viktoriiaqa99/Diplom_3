@@ -1,50 +1,59 @@
+package pages;
+
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class ConstructorPage {
 
     private WebDriver driver;
 
-    private By bunsTab = By.xpath("//span[text()='Булки']/parent::div");
-    private By saucesTab = By.xpath("//span[text()='Соусы']/parent::div");
-    private By fillingsTab = By.xpath("//span[text()='Начинки']/parent::div");
-
-    private By bunsSection = By.xpath("//h2[text()='Булки']");
-    private By saucesSection = By.xpath("//h2[text()='Соусы']");
-    private By fillingsSection = By.xpath("//h2[text()='Начинки']");
+    private By bunsTab = By.xpath("//span[text()='Булки']");
+    private By saucesTab = By.xpath("//span[text()='Соусы']");
+    private By fillingsTab = By.xpath("//span[text()='Начинки']");
+    private By activeTab = By.xpath("//div[contains(@class,'tab_tab_type_current')]");
 
     public ConstructorPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    @Step("Клик по табу «Булки»")
-    public void clickBunsTab() {
-        driver.findElement(bunsTab).click();
+    private String getActiveTabText() {
+        return driver.findElement(activeTab).getText();
     }
 
-    @Step("Клик по табу «Соусы»")
-    public void clickSaucesTab() {
-        driver.findElement(saucesTab).click();
+    @Step("Переключение на вкладку Булки")
+    public String clickBuns() {
+        if (getActiveTabText().equals("Булки")) {
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.elementToBeClickable(saucesTab))
+                    .click();
+        }
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(bunsTab))
+                .click();
+
+        return getActiveTabText();
     }
 
-    @Step("Клик по табу «Начинки»")
-    public void clickFillingsTab() {
-        driver.findElement(fillingsTab).click();
+    @Step("Переключение на вкладку Соусы")
+    public String clickSauces() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(saucesTab))
+                .click();
+        return getActiveTabText();
     }
 
-    @Step("Проверка отображения секции «Булки»")
-    public boolean isBunsSectionDisplayed() {
-        return driver.findElement(bunsSection).isDisplayed();
+    @Step("Переключение на вкладку Начинки")
+    public String clickFillings() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(fillingsTab))
+                .click();
+        return getActiveTabText();
     }
 
-    @Step("Проверка отображения секции «Соусы»")
-    public boolean isSaucesSectionDisplayed() {
-        return driver.findElement(saucesSection).isDisplayed();
-    }
-
-    @Step("Проверка отображения секции «Начинки»")
-    public boolean isFillingsSectionDisplayed() {
-        return driver.findElement(fillingsSection).isDisplayed();
-    }
 }
